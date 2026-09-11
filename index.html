@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MediTrack 360 - prototipo académico de gestión hospitalaria">
+    <title>MediTrack 360 | Actividad 4</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    
+    <header class="app-header" id="appHeader">
+        <div class="brand-block">
+            <span class="brand-mark" aria-hidden="true">✚</span>
+            <div>
+                <h1>MediTrack 360</h1>
+                <p>Gestión hospitalaria</p>
+            </div>
+        </div>
+        <div class="header-status">
+            <span id="currentViewLabel">Inicio de sesión</span>
+            <span class="user-chip" id="userChip">Invitado</span>
+        </div>
+    </header>
+
+    <div class="app-shell">
+       
+        <nav class="sidebar" id="mainNav" aria-label="Navegación principal">
+            <button class="nav-link active" data-view="dashboard" type="button">Dashboard</button>
+            <button class="nav-link" data-view="pacientes" type="button">Pacientes</button>
+            <button class="nav-link" data-view="expediente" type="button">Expedientes</button>
+            <button class="nav-link" data-view="citas" type="button">Citas</button>
+            <button class="nav-link" data-view="personal" type="button">Personal médico</button>
+            <button class="nav-link" data-view="administracion" type="button">Administración</button>
+            <div class="nav-help">
+                <strong>Actividad 4</strong>
+                <span>HTML5 · JavaScript · jQuery</span>
+            </div>
+        </nav>
+
+        
+        <main class="main-content" id="mainContent">
+          
+            <section class="view active" id="view-login" data-view-name="Inicio de sesión">
+                <article class="login-layout">
+                    <section class="login-hero">
+                        <span class="eyebrow">PROTOTIPO ACADÉMICO</span>
+                        <h2>Un solo lugar para gestionar la atención hospitalaria</h2>
+                        <p>Pacientes, expedientes, citas, personal médico e indicadores operativos dentro de una interfaz web responsiva.</p>
+                        <ul>
+                            <li>Validaciones en cliente</li>
+                            <li>Eventos DOM con jQuery</li>
+                            <li>Datos simulados con almacenamiento local</li>
+                        </ul>
+                    </section>
+
+                    <article class="login-card">
+                        <h2>Bienvenido</h2>
+                        <p>Accede al prototipo de MediTrack 360.</p>
+                        <form id="loginForm" novalidate>
+                            <div class="form-group">
+                                <label for="loginEmail">Correo institucional</label>
+                                <input id="loginEmail" name="email" type="email" placeholder="usuario@meditrack.demo" autocomplete="email">
+                                <small class="field-message" id="loginEmailMessage"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="loginPassword">Contraseña</label>
+                                <input id="loginPassword" name="password" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password">
+                                <small class="field-message" id="loginPasswordMessage"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="loginRole">Rol de acceso</label>
+                                <select id="loginRole" name="role">
+                                    <option value="administrador">Administrador</option>
+                                    <option value="recepcion">Recepción</option>
+                                    <option value="medico">Médico</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary btn-block" type="submit">INICIAR SESIÓN</button>
+                            <div class="form-alert" id="loginAlert" role="status"></div>
+                        </form>
+                    </article>
+                </article>
+            </section>
+
+         
+            <section class="view" id="view-dashboard" data-view-name="Dashboard hospitalario">
+                <div class="view-heading">
+                    <div>
+                        <span class="eyebrow">RESUMEN OPERATIVO</span>
+                        <h2>Dashboard hospitalario</h2>
+                        <p>Indicadores calculados dinámicamente desde los datos del prototipo.</p>
+                    </div>
+                    <button class="btn btn-primary" type="button" data-action="open-patient-form">+ Registrar paciente</button>
+                </div>
+
+                <section class="kpi-grid" aria-label="Indicadores principales">
+                    <article class="kpi-card">
+                        <span class="kpi-number" id="kpiPatients">0</span>
+                        <span class="kpi-label">Pacientes registrados</span>
+                    </article>
+                    <article class="kpi-card">
+                        <span class="kpi-number" id="kpiAppointments">0</span>
+                        <span class="kpi-label">Citas programadas</span>
+                    </article>
+                    <article class="kpi-card">
+                        <span class="kpi-number" id="kpiActiveDoctors">0</span>
+                        <span class="kpi-label">Médicos disponibles</span>
+                    </article>
+                    <article class="kpi-card">
+                        <span class="kpi-number" id="kpiFollowUp">0</span>
+                        <span class="kpi-label">Pacientes en seguimiento</span>
+                    </article>
+                </section>
+
+                <section class="dashboard-grid">
+                    <article class="panel">
+                        <div class="panel-heading">
+                            <h3>Próximas citas</h3>
+                            <button class="btn btn-outline btn-small" type="button" data-view-target="citas">Ver agenda</button>
+                        </div>
+                        <div id="dashboardAppointments" class="list-stack"></div>
+                    </article>
+                    <aside class="panel">
+                        <div class="panel-heading">
+                            <h3>Actividad reciente</h3>
+                        </div>
+                        <div id="activityFeed" class="timeline-list"></div>
+                    </aside>
+                </section>
+            </section>
+
+            
+            <section class="view" id="view-pacientes" data-view-name="Pacientes">
+                <div class="view-heading">
+                    <div>
+                        <span class="eyebrow">GESTIÓN DE PACIENTES</span>
+                        <h2>Pacientes</h2>
+                        <p>Búsqueda, filtros y consulta dinámica de expedientes.</p>
+                    </div>
+                    <button class="btn btn-primary" type="button" data-action="toggle-patient-form">+ Nuevo paciente</button>
+                </div>
+
+                <section class="toolbar" aria-label="Filtros de pacientes">
+                    <div class="search-box">
+                        <label for="patientSearch">Buscar paciente</label>
+                        <input id="patientSearch" type="search" placeholder="Nombre, identificación o expediente...">
+                    </div>
+                    <div class="filter-box">
+                        <label for="patientStatusFilter">Estado</label>
+                        <select id="patientStatusFilter">
+                            <option value="todos">Todos</option>
+                            <option value="ACTIVO">Activo</option>
+                            <option value="SEGUIMIENTO">Seguimiento</option>
+                            <option value="CONTROL">Control</option>
+                        </select>
+                    </div>
+                </section>
+
+                <section class="split-layout">
+                    <article class="panel table-panel">
+                        <div class="panel-heading">
+                            <h3>Listado de pacientes</h3>
+                            <span class="result-count" id="patientResultCount">0 resultados</span>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Expediente</th>
+                                        <th>Paciente</th>
+                                        <th>Edad</th>
+                                        <th>Última consulta</th>
+                                        <th>Estado</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="patientsTableBody"></tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <aside class="panel form-panel hidden" id="patientFormPanel">
+                        <div class="panel-heading">
+                            <h3>Registrar paciente</h3>
+                            <button class="icon-button" type="button" data-action="close-patient-form" aria-label="Cerrar formulario">×</button>
+                        </div>
+                        <form id="patientForm" novalidate>
+                            <div class="form-grid two-cols">
+                                <div class="form-group">
+                                    <label for="patientName">Nombre</label>
+                                    <input id="patientName" type="text" placeholder="Ej. Ana">
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientLastName">Apellido</label>
+                                    <input id="patientLastName" type="text" placeholder="Ej. González">
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientId">Identificación</label>
+                                    <input id="patientId" type="text" placeholder="8-000-000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientBirth">Fecha de nacimiento</label>
+                                    <input id="patientBirth" type="date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientBlood">Tipo de sangre</label>
+                                    <select id="patientBlood">
+                                        <option value="">Seleccionar</option>
+                                        <option>O+</option><option>O-</option><option>A+</option><option>A-</option>
+                                        <option>B+</option><option>B-</option><option>AB+</option><option>AB-</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientStatus">Estado</label>
+                                    <select id="patientStatus">
+                                        <option>ACTIVO</option>
+                                        <option>SEGUIMIENTO</option>
+                                        <option>CONTROL</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="patientPhone">Teléfono</label>
+                                <input id="patientPhone" type="tel" placeholder="+507 6000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="patientEmail">Correo</label>
+                                <input id="patientEmail" type="email" placeholder="paciente@correo.demo">
+                            </div>
+                            <div class="form-alert" id="patientFormAlert" role="status"></div>
+                            <div class="form-actions">
+                                <button class="btn btn-outline" type="button" data-action="close-patient-form">Cancelar</button>
+                                <button class="btn btn-primary" type="submit">Guardar paciente</button>
+                            </div>
+                        </form>
+                    </aside>
+                </section>
+            </section>
+
+            
+            <section class="view" id="view-expediente" data-view-name="Expediente clínico">
+                <div class="view-heading">
+                    <div>
+                        <span class="eyebrow">EXPEDIENTE CLÍNICO</span>
+                        <h2 id="recordTitle">Seleccione un paciente</h2>
+                        <p id="recordSubtitle">Consulta de información y seguimiento.</p>
+                    </div>
+                    <button class="btn btn-primary" type="button" data-view-target="citas">+ Nueva cita</button>
+                </div>
+
+                <section class="record-layout">
+                    <article class="panel">
+                        <div class="panel-heading">
+                            <h3>Datos del paciente</h3>
+                        </div>
+                        <dl class="detail-list" id="recordDetails"></dl>
+                    </article>
+                    <section class="record-right">
+                        <article class="panel">
+                            <div class="panel-heading"><h3>Línea de seguimiento</h3></div>
+                            <div id="recordTimeline" class="timeline-list"></div>
+                        </article>
+                        <aside class="panel">
+                            <div class="panel-heading"><h3>Última consulta</h3></div>
+                            <p id="recordLastConsultation">Sin información.</p>
+                        </aside>
+                    </section>
+                </section>
+            </section>
+
+            
+            <section class="view" id="view-citas" data-view-name="Gestión de citas">
+                <div class="view-heading">
+                    <div>
+                        <span class="eyebrow">AGENDA</span>
+                        <h2>Gestión de citas</h2>
+                        <p>Agenda diaria y programación de nuevas atenciones.</p>
+                    </div>
+                    <button class="btn btn-outline" id="toggleAgendaMode" type="button">Cambiar vista</button>
+                </div>
+
+                <section class="appointment-layout">
+                    <article class="panel">
+                        <div class="panel-heading">
+                            <h3 id="agendaTitle">Agenda de citas</h3>
+                            <span class="result-count" id="appointmentCount">0 citas</span>
+                        </div>
+                        <div id="appointmentList" class="appointment-list"></div>
+                    </article>
+
+                    <aside class="panel">
+                        <div class="panel-heading"><h3>Programar nueva cita</h3></div>
+                        <form id="appointmentForm" novalidate>
+                            <div class="form-group">
+                                <label for="appointmentPatient">Paciente</label>
+                                <select id="appointmentPatient"></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointmentSpecialty">Especialidad</label>
+                                <select id="appointmentSpecialty">
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointmentDoctor">Médico</label>
+                                <select id="appointmentDoctor">
+                                    <option value="">Seleccione especialidad primero</option>
+                                </select>
+                            </div>
+                            <div class="form-grid two-cols">
+                                <div class="form-group">
+                                    <label for="appointmentDate">Fecha</label>
+                                    <input id="appointmentDate" type="date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointmentTime">Hora</label>
+                                    <input id="appointmentTime" type="time">
+                                </div>
+                            </div>
+                            <div class="form-alert" id="appointmentAlert" role="status"></div>
+                            <button class="btn btn-primary btn-block" type="submit">Programar cita</button>
+                        </form>
+                    </aside>
+                </section>
+            </section>
+
+         
+            <section class="view" id="view-personal" data-view-name="Personal médico">
+                <div class="view-heading">
+                    <div>
+                        <span class="eyebrow">DIRECTORIO MÉDICO</span>
+                        <h2>Personal médico</h2>
+                        <p>Médicos, especialidades, disponibilidad y estado del personal.</p>
+                    </div>
+                </div>
+
+                <section class="toolbar">
+                    <div class="search-box">
+                        <label for="doctorSearch">Buscar médico</label>
+                        <input id="doctorSearch" type="search" placeholder="Médico o especialidad...">
+                    </div>
+                    <div class="filter-box">
+                        <label for="doctorStatusFilter">Estado</label>
+                        <select id="doctorStatusFilter">
+                            <option value="todos">Todos</option>
+                            <option value="DISPONIBLE">Disponible</option>
+                            <option value="EN CONSULTA">En consulta</option>
+                            <option value="PRÓXIMO TURNO">Próximo turno</option>
+                        </select>
+                    </div>
+                </section>
+
+                <section class="appointment-layout">
+                    <article class="panel table-panel">
+                        <div class="panel-heading">
+                            <h3>Directorio médico</h3>
+                            <span class="result-count" id="doctorResultCount">0 resultados</span>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Médico</th>
+                                        <th>Especialidad</th>
+                                        <th>Registro</th>
+                                        <th>Turno</th>
+                                        <th>Estado</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="doctorsTableBody"></tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <aside class="panel">
+                        <div class="panel-heading"><h3>Registrar personal médico</h3></div>
+                        <form id="doctorForm" novalidate>
+                            <div class="form-group">
+                                <label for="doctorName">Nombre completo</label>
+                                <input id="doctorName" type="text" placeholder="Ej. Dra. María González">
+                            </div>
+                            <div class="form-group">
+                                <label for="doctorSpecialty">Especialidad</label>
+                                <input id="doctorSpecialty" type="text" placeholder="Ej. Cardiología">
+                            </div>
+                            <div class="form-grid two-cols">
+                                <div class="form-group">
+                                    <label for="doctorLicense">Registro</label>
+                                    <input id="doctorLicense" type="text" placeholder="MED-0000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="doctorShift">Turno</label>
+                                    <input id="doctorShift" type="text" placeholder="08:00–16:00">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="doctorStatus">Estado</label>
+                                <select id="doctorStatus">
+                                    <option>DISPONIBLE</option>
+                                    <option>EN CONSULTA</option>
+                                    <option>PRÓXIMO TURNO</option>
+                                </select>
+                            </div>
+                            <div class="form-alert" id="doctorFormAlert" role="status"></div>
+                            <button class="btn btn-primary btn-block" type="submit">Guardar personal</button>
+                        </form>
+                    </aside>
+                </section>
+            </section>
+
+            
+            <section class="view" id="view-administracion" data-view-name="Administración">
+                <div class="view-heading">
+                    <div>
+                        <span class="eyebrow">CONFIGURACIÓN</span>
+                        <h2>Administración</h2>
+                        <p>Usuarios, roles y parámetros demostrativos del sistema.</p>
+                    </div>
+                    <button class="btn btn-primary" type="button" id="addDemoUser">+ Nuevo usuario</button>
+                </div>
+
+                <section class="admin-tabs" aria-label="Secciones administrativas">
+                    <button class="admin-tab active" data-admin-tab="usuarios" type="button">Usuarios</button>
+                    <button class="admin-tab" data-admin-tab="roles" type="button">Roles</button>
+                    <button class="admin-tab" data-admin-tab="parametros" type="button">Parámetros</button>
+                </section>
+
+                <section class="admin-layout">
+                    <article class="panel admin-content active" id="admin-usuarios">
+                        <div class="panel-heading"><h3>Usuarios del sistema</h3></div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr><th>Usuario</th><th>Rol</th><th>Área</th><th>Estado</th><th>Acción</th></tr>
+                                </thead>
+                                <tbody id="usersTableBody"></tbody>
+                            </table>
+                        </div>
+                    </article>
+                    <article class="panel admin-content" id="admin-roles">
+                        <div class="panel-heading"><h3>Roles contemplados</h3></div>
+                        <div class="role-grid">
+                            <span>Administrador</span><span>Recepción</span><span>Personal médico</span>
+                        </div>
+                    </article>
+                    <article class="panel admin-content" id="admin-parametros">
+                        <div class="panel-heading"><h3>Parámetros demostrativos</h3></div>
+                        <ul class="settings-list">
+                            <li><strong>Centro:</strong> Hospital Demo MediTrack</li>
+                            <li><strong>Zona horaria:</strong> Panamá (UTC-5)</li>
+                            <li><strong>Sesión:</strong> Modo académico / cliente</li>
+                        </ul>
+                    </article>
+                    <aside class="panel">
+                        <div class="panel-heading"><h3>Resumen de acceso</h3></div>
+                        <div class="summary-metrics">
+                            <div><strong id="summaryUsers">0</strong><span>Usuarios</span></div>
+                            <div><strong>3</strong><span>Roles</span></div>
+                            <div><strong id="summarySpecialties">0</strong><span>Especialidades</span></div>
+                        </div>
+                    </aside>
+                </section>
+            </section>
+        </main>
+    </div>
+
+   
+    <footer class="app-footer">
+        <span>© 2026 MediTrack 360 · Proyecto académico · Datos ficticios</span>
+        <button class="back-top" id="backTop" type="button">↑ Volver arriba</button>
+    </footer>
+
+    <div class="modal-backdrop hidden" id="infoModal" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" type="button" data-action="close-modal" aria-label="Cerrar">×</button>
+            <h3 id="modalTitle">Información</h3>
+            <div id="modalBody"></div>
+            <button class="btn btn-primary" type="button" data-action="close-modal">Aceptar</button>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
