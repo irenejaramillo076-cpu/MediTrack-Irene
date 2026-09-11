@@ -1,0 +1,8 @@
+node_modules/
+.npm-cache/
+.env
+database/*.db*
+database/*.sqlite*
+coverage/
+test-output/
+*.log

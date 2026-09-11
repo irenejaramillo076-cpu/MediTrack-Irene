@@ -7,7 +7,7 @@
     <title>MediTrack 360 | Actividad 4</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="unauthenticated">
     
     <header class="app-header" id="appHeader">
         <div class="brand-block">
@@ -19,7 +19,7 @@
         </div>
         <div class="header-status">
             <span id="currentViewLabel">Inicio de sesión</span>
-            <span class="user-chip" id="userChip">Invitado</span>
+            <span class="user-chip" id="userChip">Invitado</span><button id="logoutButton" class="btn btn-outline btn-small hidden" type="button">Cerrar sesión</button>
         </div>
     </header>
 
@@ -50,14 +50,14 @@
                         <ul>
                             <li>Validaciones en cliente</li>
                             <li>Eventos DOM con jQuery</li>
-                            <li>Datos simulados con almacenamiento local</li>
+                            <li>Datos persistidos en SQLite</li>
                         </ul>
                     </section>
 
                     <article class="login-card">
                         <h2>Bienvenido</h2>
                         <p>Accede al prototipo de MediTrack 360.</p>
-                        <form id="loginForm" novalidate>
+                        <form id="loginForm" action="/api/auth/login" method="POST" novalidate>
                             <div class="form-group">
                                 <label for="loginEmail">Correo institucional</label>
                                 <input id="loginEmail" name="email" type="email" placeholder="usuario@meditrack.demo" autocomplete="email">
@@ -185,27 +185,27 @@
                             <h3>Registrar paciente</h3>
                             <button class="icon-button" type="button" data-action="close-patient-form" aria-label="Cerrar formulario">×</button>
                         </div>
-                        <form id="patientForm" novalidate>
+                        <form id="patientForm" action="/api/patients" method="POST" novalidate>
                             <div class="form-grid two-cols">
                                 <div class="form-group">
                                     <label for="patientName">Nombre</label>
-                                    <input id="patientName" type="text" placeholder="Ej. Ana">
+                                    <input id="patientName" name="nombre" type="text" placeholder="Ej. Ana">
                                 </div>
                                 <div class="form-group">
                                     <label for="patientLastName">Apellido</label>
-                                    <input id="patientLastName" type="text" placeholder="Ej. González">
+                                    <input id="patientLastName" name="apellido" type="text" placeholder="Ej. González">
                                 </div>
                                 <div class="form-group">
                                     <label for="patientId">Identificación</label>
-                                    <input id="patientId" type="text" placeholder="8-000-000">
+                                    <input id="patientId" name="identificacion" type="text" placeholder="8-000-000">
                                 </div>
                                 <div class="form-group">
                                     <label for="patientBirth">Fecha de nacimiento</label>
-                                    <input id="patientBirth" type="date">
+                                    <input id="patientBirth" name="fecha_nacimiento" type="date">
                                 </div>
                                 <div class="form-group">
                                     <label for="patientBlood">Tipo de sangre</label>
-                                    <select id="patientBlood">
+                                    <select id="patientBlood" name="sangre">
                                         <option value="">Seleccionar</option>
                                         <option>O+</option><option>O-</option><option>A+</option><option>A-</option>
                                         <option>B+</option><option>B-</option><option>AB+</option><option>AB-</option>
@@ -213,7 +213,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="patientStatus">Estado</label>
-                                    <select id="patientStatus">
+                                    <select id="patientStatus" name="estado">
                                         <option>ACTIVO</option>
                                         <option>SEGUIMIENTO</option>
                                         <option>CONTROL</option>
@@ -222,11 +222,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="patientPhone">Teléfono</label>
-                                <input id="patientPhone" type="tel" placeholder="+507 6000-0000">
+                                <input id="patientPhone" name="telefono" type="tel" placeholder="+507 6000-0000">
                             </div>
                             <div class="form-group">
                                 <label for="patientEmail">Correo</label>
-                                <input id="patientEmail" type="email" placeholder="paciente@correo.demo">
+                                <input id="patientEmail" name="correo" type="email" placeholder="paciente@correo.demo">
                             </div>
                             <div class="form-alert" id="patientFormAlert" role="status"></div>
                             <div class="form-actions">
@@ -291,34 +291,34 @@
 
                     <aside class="panel">
                         <div class="panel-heading"><h3>Programar nueva cita</h3></div>
-                        <form id="appointmentForm" novalidate>
+                        <form id="appointmentForm" action="/api/appointments" method="POST" novalidate>
                             <div class="form-group">
                                 <label for="appointmentPatient">Paciente</label>
-                                <select id="appointmentPatient"></select>
+                                <select id="appointmentPatient" name="patient_id"></select>
                             </div>
                             <div class="form-group">
                                 <label for="appointmentSpecialty">Especialidad</label>
-                                <select id="appointmentSpecialty">
+                                <select id="appointmentSpecialty" name="especialidad">
                                     <option value="">Seleccionar</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="appointmentDoctor">Médico</label>
-                                <select id="appointmentDoctor">
+                                <select id="appointmentDoctor" name="doctor_id">
                                     <option value="">Seleccione especialidad primero</option>
                                 </select>
                             </div>
                             <div class="form-grid two-cols">
                                 <div class="form-group">
                                     <label for="appointmentDate">Fecha</label>
-                                    <input id="appointmentDate" type="date">
+                                    <input id="appointmentDate" name="fecha" type="date">
                                 </div>
                                 <div class="form-group">
                                     <label for="appointmentTime">Hora</label>
-                                    <input id="appointmentTime" type="time">
+                                    <input id="appointmentTime" name="hora" type="time">
                                 </div>
                             </div>
-                            <div class="form-alert" id="appointmentAlert" role="status"></div>
+                            <div class="form-group"><label for="appointmentStatus">Estado</label><select id="appointmentStatus" name="estado"><option>PROGRAMADA</option><option>CONFIRMADA</option><option>EN ESPERA</option><option>FINALIZADA</option><option>CANCELADA</option></select></div><div class="form-alert" id="appointmentAlert" role="status"></div>
                             <button class="btn btn-primary btn-block" type="submit">Programar cita</button>
                         </form>
                     </aside>
@@ -376,28 +376,28 @@
 
                     <aside class="panel">
                         <div class="panel-heading"><h3>Registrar personal médico</h3></div>
-                        <form id="doctorForm" novalidate>
+                        <form id="doctorForm" action="/api/doctors" method="POST" novalidate>
                             <div class="form-group">
                                 <label for="doctorName">Nombre completo</label>
-                                <input id="doctorName" type="text" placeholder="Ej. Dra. María González">
+                                <input id="doctorName" name="nombre" type="text" placeholder="Ej. Dra. María González">
                             </div>
                             <div class="form-group">
                                 <label for="doctorSpecialty">Especialidad</label>
-                                <input id="doctorSpecialty" type="text" placeholder="Ej. Cardiología">
+                                <input id="doctorSpecialty" name="especialidad" type="text" placeholder="Ej. Cardiología">
                             </div>
                             <div class="form-grid two-cols">
                                 <div class="form-group">
                                     <label for="doctorLicense">Registro</label>
-                                    <input id="doctorLicense" type="text" placeholder="MED-0000">
+                                    <input id="doctorLicense" name="registro" type="text" placeholder="MED-0000">
                                 </div>
                                 <div class="form-group">
                                     <label for="doctorShift">Turno</label>
-                                    <input id="doctorShift" type="text" placeholder="08:00–16:00">
+                                    <input id="doctorShift" name="turno" type="text" placeholder="08:00–16:00">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="doctorStatus">Estado</label>
-                                <select id="doctorStatus">
+                                <select id="doctorStatus" name="estado">
                                     <option>DISPONIBLE</option>
                                     <option>EN CONSULTA</option>
                                     <option>PRÓXIMO TURNO</option>
@@ -450,7 +450,7 @@
                         <ul class="settings-list">
                             <li><strong>Centro:</strong> Hospital Demo MediTrack</li>
                             <li><strong>Zona horaria:</strong> Panamá (UTC-5)</li>
-                            <li><strong>Sesión:</strong> Modo académico / cliente</li>
+                            <li><strong>Sesión:</strong> Sesión autenticada en servidor</li>
                         </ul>
                     </article>
                     <aside class="panel">
@@ -482,7 +482,7 @@
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

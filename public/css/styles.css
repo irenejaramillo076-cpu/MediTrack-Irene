@@ -219,3 +219,11 @@ td { padding:13px 10px; border-bottom:1px solid #edf1f5; font-size:13px; vertica
     .appointment-item { grid-template-columns:1fr; }
     .detail-list { grid-template-columns:1fr; }
 }
+
+/* Sesión no autenticada. */
+body.unauthenticated .app-shell { grid-template-columns: minmax(0, 1fr); }
+body.unauthenticated #mainNav,
+body.unauthenticated #logoutButton,
+body.unauthenticated [data-view-target],
+body.unauthenticated .view:not(#view-login),
+[hidden] { display: none !important; }

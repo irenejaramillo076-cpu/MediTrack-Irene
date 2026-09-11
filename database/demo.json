@@ -1,0 +1,208 @@
+{
+  "demoPatients": [
+    {
+      "id": 1,
+      "expediente": "MED-2026-0001",
+      "nombre": "Ana González",
+      "edad": 34,
+      "identificacion": "8-000-000",
+      "sangre": "O+",
+      "telefono": "+507 6000-0000",
+      "correo": "ana@demo.test",
+      "ultima": "28/08/2026",
+      "estado": "ACTIVO",
+      "seguimiento": [
+        "28 AGO · Consulta general · Seguimiento",
+        "15 JUL · Control médico · Finalizada",
+        "03 JUN · Primera consulta · Finalizada"
+      ],
+      "ultimaConsulta": "Dolor de cabeza recurrente. Se mantiene seguimiento."
+    },
+    {
+      "id": 2,
+      "expediente": "MED-2026-0002",
+      "nombre": "Carlos Méndez",
+      "edad": 48,
+      "identificacion": "8-111-111",
+      "sangre": "A+",
+      "telefono": "+507 6111-1111",
+      "correo": "carlos@demo.test",
+      "ultima": "27/08/2026",
+      "estado": "SEGUIMIENTO",
+      "seguimiento": [
+        "27 AGO · Consulta general · Seguimiento",
+        "02 AGO · Evaluación · Finalizada"
+      ],
+      "ultimaConsulta": "Control de signos vitales y evaluación general."
+    },
+    {
+      "id": 3,
+      "expediente": "MED-2026-0003",
+      "nombre": "Laura Díaz",
+      "edad": 29,
+      "identificacion": "8-222-222",
+      "sangre": "B+",
+      "telefono": "+507 6222-2222",
+      "correo": "laura@demo.test",
+      "ultima": "25/08/2026",
+      "estado": "ACTIVO",
+      "seguimiento": [
+        "25 AGO · Consulta · Finalizada"
+      ],
+      "ultimaConsulta": "Consulta de rutina."
+    },
+    {
+      "id": 4,
+      "expediente": "MED-2026-0004",
+      "nombre": "José Martínez",
+      "edad": 61,
+      "identificacion": "8-333-333",
+      "sangre": "O-",
+      "telefono": "+507 6333-3333",
+      "correo": "jose@demo.test",
+      "ultima": "22/08/2026",
+      "estado": "CONTROL",
+      "seguimiento": [
+        "22 AGO · Control · Programado"
+      ],
+      "ultimaConsulta": "Paciente programado para control."
+    },
+    {
+      "id": 5,
+      "expediente": "MED-2026-0005",
+      "nombre": "Sofía Herrera",
+      "edad": 17,
+      "identificacion": "8-444-444",
+      "sangre": "AB+",
+      "telefono": "+507 6444-4444",
+      "correo": "sofia@demo.test",
+      "ultima": "20/08/2026",
+      "estado": "ACTIVO",
+      "seguimiento": [
+        "20 AGO · Pediatría · Finalizada"
+      ],
+      "ultimaConsulta": "Seguimiento pediátrico."
+    }
+  ],
+  "demoDoctors": [
+    {
+      "id": 1,
+      "nombre": "Dra. Ana Ruiz",
+      "especialidad": "Cardiología",
+      "registro": "MED-0041",
+      "turno": "08:00–16:00",
+      "estado": "DISPONIBLE"
+    },
+    {
+      "id": 2,
+      "nombre": "Dr. José Díaz",
+      "especialidad": "Pediatría",
+      "registro": "MED-0036",
+      "turno": "07:00–15:00",
+      "estado": "EN CONSULTA"
+    },
+    {
+      "id": 3,
+      "nombre": "Dra. Carla Méndez",
+      "especialidad": "Dermatología",
+      "registro": "MED-0055",
+      "turno": "09:00–17:00",
+      "estado": "DISPONIBLE"
+    },
+    {
+      "id": 4,
+      "nombre": "Dr. Luis Herrera",
+      "especialidad": "Medicina General",
+      "registro": "MED-0028",
+      "turno": "12:00–20:00",
+      "estado": "PRÓXIMO TURNO"
+    },
+    {
+      "id": 5,
+      "nombre": "Dra. Sofía Pérez",
+      "especialidad": "Ginecología",
+      "registro": "MED-0062",
+      "turno": "08:00–16:00",
+      "estado": "DISPONIBLE"
+    }
+  ],
+  "demoAppointments": [
+    {
+      "id": 1,
+      "pacienteId": 1,
+      "paciente": "Ana González",
+      "especialidad": "Medicina General",
+      "medico": "Dr. Luis Herrera",
+      "fecha": "2026-09-07",
+      "hora": "08:30",
+      "estado": "CONFIRMADA"
+    },
+    {
+      "id": 2,
+      "pacienteId": 2,
+      "paciente": "Carlos Méndez",
+      "especialidad": "Pediatría",
+      "medico": "Dr. José Díaz",
+      "fecha": "2026-09-07",
+      "hora": "09:00",
+      "estado": "EN ESPERA"
+    },
+    {
+      "id": 3,
+      "pacienteId": 3,
+      "paciente": "Laura Díaz",
+      "especialidad": "Cardiología",
+      "medico": "Dra. Ana Ruiz",
+      "fecha": "2026-09-07",
+      "hora": "09:30",
+      "estado": "CONFIRMADA"
+    },
+    {
+      "id": 4,
+      "pacienteId": 4,
+      "paciente": "José Martínez",
+      "especialidad": "Medicina General",
+      "medico": "Dr. Luis Herrera",
+      "fecha": "2026-09-07",
+      "hora": "10:15",
+      "estado": "PROGRAMADA"
+    }
+  ],
+  "demoUsers": [
+    {
+      "id": 1,
+      "nombre": "María Pérez",
+      "rol": "Administrador",
+      "area": "Sistemas",
+      "estado": "ACTIVO"
+    },
+    {
+      "id": 2,
+      "nombre": "Luis Gómez",
+      "rol": "Recepción",
+      "area": "Admisión",
+      "estado": "ACTIVO"
+    },
+    {
+      "id": 3,
+      "nombre": "Dra. Ana Ruiz",
+      "rol": "Médico",
+      "area": "Cardiología",
+      "estado": "ACTIVO"
+    },
+    {
+      "id": 4,
+      "nombre": "Dr. José Díaz",
+      "rol": "Médico",
+      "area": "Pediatría",
+      "estado": "ACTIVO"
+    },
+    {
+      "id": 5,
+      "nombre": "Carla Ríos",
+      "rol": "Recepción",
+      "area": "Admisión",
+      "estado": "INACTIVO"
+    }
+  ]
+}
