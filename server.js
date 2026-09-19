@@ -7,6 +7,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 const app = express();
+app.set('trust proxy', 1);
 const production = process.env.NODE_ENV === 'production';
 let secret = process.env.SESSION_SECRET;
 if (!secret || secret === 'cambiar_esta_clave') {
