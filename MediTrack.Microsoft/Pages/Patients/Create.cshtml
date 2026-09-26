@@ -1,0 +1,21 @@
+@page
+@model MediTrack.Microsoft.Pages.Patients.CreateModel
+@{
+    ViewData["Title"] = "Registrar paciente";
+}
+
+<div class="page-heading">
+    <div><span class="eyebrow">FORMULARIO CON BASE DE DATOS</span><h1>Registrar paciente</h1></div>
+</div>
+
+<form method="post" class="form-card wide">
+    <div asp-validation-summary="ModelOnly" class="validation"></div>
+    <div class="form-grid">
+        <div><label asp-for="Patient.FirstName"></label><input asp-for="Patient.FirstName" /><span asp-validation-for="Patient.FirstName" class="validation"></span></div>
+        <div><label asp-for="Patient.LastName"></label><input asp-for="Patient.LastName" /><span asp-validation-for="Patient.LastName" class="validation"></span></div>
+        <div><label asp-for="Patient.Email"></label><input asp-for="Patient.Email" /><span asp-validation-for="Patient.Email" class="validation"></span></div>
+        <div><label asp-for="Patient.Phone"></label><input asp-for="Patient.Phone" /></div>
+        <div><label asp-for="Patient.BirthDate"></label><input asp-for="Patient.BirthDate" /></div>
+    </div>
+    <div class="form-actions"><button type="submit">Guardar en SQL Server</button><a asp-page="/Patients/Index">Cancelar</a></div>
+</form>
