@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - MediTrack 360</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">MediTrack <span>360</span></div>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <nav>
+                <a asp-page="/Index">Inicio</a>
+                <a asp-page="/Patients/Index">Pacientes</a>
+                <a asp-page="/Patients/Create">Registrar paciente</a>
+                <a asp-page="/Account/Logout">Cerrar sesión</a>
+            </nav>
+        }
+    </header>
+    <main class="container">
+        @RenderBody()
+    </main>
+</body>
+</html>
