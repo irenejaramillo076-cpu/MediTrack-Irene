@@ -1,0 +1,24 @@
+@page
+@model MediTrack.Microsoft.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<section class="auth-card">
+    <div class="auth-copy">
+        <span class="eyebrow">PROYECTO FINAL · MICROSOFT</span>
+        <h1>MediTrack 360</h1>
+        <p>Gestión básica de pacientes sobre ASP.NET Core, SQL Server e IIS.</p>
+    </div>
+    <form method="post" class="form-card">
+        <h2>Iniciar sesión</h2>
+        <div asp-validation-summary="ModelOnly" class="validation"></div>
+        <label asp-for="Input.Username"></label>
+        <input asp-for="Input.Username" autocomplete="username" />
+        <span asp-validation-for="Input.Username" class="validation"></span>
+        <label asp-for="Input.Password"></label>
+        <input asp-for="Input.Password" autocomplete="current-password" />
+        <span asp-validation-for="Input.Password" class="validation"></span>
+        <button type="submit">Entrar a MediTrack</button>
+    </form>
+</section>
