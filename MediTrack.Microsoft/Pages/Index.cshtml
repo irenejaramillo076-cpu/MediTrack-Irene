@@ -1,0 +1,25 @@
+@page
+@model MediTrack.Microsoft.Pages.IndexModel
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<section class="hero">
+    <div>
+        <span class="eyebrow">SERVIDOR MICROSOFT · IIS · SQL SERVER</span>
+        <h1>Panel principal</h1>
+        <p>Bienvenido, <strong>@User.Identity?.Name</strong>. Desde aquí puedes registrar y consultar pacientes almacenados en SQL Server.</p>
+    </div>
+    <div class="hero-badge">MediTrack 360</div>
+</section>
+
+<section class="stats">
+    <article><strong>@Model.PatientCount</strong><span>Pacientes registrados</span></article>
+    <article><strong>SQL Server</strong><span>Base de datos</span></article>
+    <article><strong>IIS</strong><span>Publicación web</span></article>
+</section>
+
+<section class="actions">
+    <a class="action-card" asp-page="/Patients/Create"><h2>Registrar paciente</h2><p>Formulario conectado a la base de datos.</p></a>
+    <a class="action-card" asp-page="/Patients/Index"><h2>Consultar pacientes</h2><p>Consulta y devolución de registros desde SQL Server.</p></a>
+</section>
