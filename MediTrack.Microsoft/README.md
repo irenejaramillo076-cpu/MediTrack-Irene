@@ -1,74 +1,67 @@
 # MediTrack 360 - Proyecto Final Microsoft
 
-Versión académica de MediTrack preparada para demostrar los requisitos del proyecto final del curso **Herramientas para Desarrollo de Aplicaciones Web**.
+Versión académica de MediTrack preparada para demostrar los requisitos del proyecto final del curso **Herramientas para Desarrollo de Aplicaciones Web** con una interfaz pensada para usuarios reales de una clínica.
 
-## Arquitectura
+## Módulos incluidos
 
-- Windows Server 2019/2022/2025 o Windows 10/11 para laboratorio
-- IIS como servidor de publicación web
-- ASP.NET Core 8 / Razor Pages
-- SQL Server
-- Entity Framework Core
-- Autenticación mediante cookies
+- Inicio / panel general.
+- Pacientes.
+- Citas médicas.
+- Médicos.
+- Historial clínico.
+- Reportes de actividad.
+- Autenticación y cierre de sesión.
 
-## Funcionalidades demostrables
+## Arquitectura técnica
 
-1. Pantalla de inicio de sesión.
-2. Validación del usuario contra la tabla `Users` de SQL Server.
-3. Página principal después de iniciar sesión.
-4. Formulario de registro de pacientes.
-5. Almacenamiento de pacientes en SQL Server.
-6. Consulta y búsqueda de pacientes desde la base de datos.
-7. Cierre de sesión.
+- Windows Server 2022.
+- IIS para publicación web.
+- ASP.NET Core 8 / Razor Pages.
+- SQL Server Express.
+- Entity Framework Core.
+- Autenticación mediante cookies.
 
-## 1. Requisitos en el servidor
+La información técnica no se muestra al usuario final dentro de la interfaz; queda reservada para la documentación y la sustentación.
 
-Instalar:
+## Conexión predeterminada
 
-- IIS.
-- .NET 8 Hosting Bundle para IIS.
-- SQL Server.
-- SQL Server Management Studio (recomendado para demostrar la base de datos).
-- Visual Studio 2022 con la carga de trabajo **ASP.NET y desarrollo web**, o .NET 8 SDK.
+La aplicación está configurada para la instancia usada en el laboratorio:
 
-## 2. Crear la base de datos
+`Server=localhost\SQLEXPRESS;Database=MediTrackDB;Trusted_Connection=True;TrustServerCertificate=True;`
 
-La aplicación usa por defecto:
+Al iniciar, la aplicación verifica y crea las tablas complementarias necesarias para médicos, citas e historial clínico. También agrega datos de demostración si esas tablas están vacías.
 
-`Server=localhost;Database=MediTrackDB;Trusted_Connection=True;TrustServerCertificate=True;`
+## Usuario administrador inicial
 
-Entity Framework crea automáticamente las tablas `Users` y `Patients` al iniciar por primera vez.
-
-Si IIS utiliza una identidad que no tiene acceso a SQL Server, configure una cadena de conexión apropiada mediante la variable de entorno `ConnectionStrings__DefaultConnection` o conceda permisos al Application Pool sobre `MediTrackDB`.
-
-## 3. Crear el administrador inicial
-
-Por seguridad la contraseña no se guarda en GitHub. Antes del primer inicio configure una variable de entorno en Windows Server:
+La contraseña no se guarda en GitHub. Antes del primer arranque en una instalación nueva configure:
 
 ```powershell
 $env:MEDITRACK_ADMIN_PASSWORD="SU_CLAVE_DE_DEMO"
 ```
 
-El usuario inicial será `admin`. En el primer arranque la aplicación guardará la contraseña como hash en SQL Server.
+Usuario inicial:
 
-Para una variable persistente en el servidor puede usar:
+`admin`
+
+Para dejar la variable persistente en Windows Server:
 
 ```powershell
 [Environment]::SetEnvironmentVariable("MEDITRACK_ADMIN_PASSWORD", "SU_CLAVE_DE_DEMO", "Machine")
 ```
 
-Después reinicie IIS o la sesión correspondiente.
+## Ejecutar para pruebas
 
-## 4. Ejecutar desde Visual Studio
-
-Abra `MediTrack.Microsoft.csproj`, restaure paquetes y ejecute el proyecto. También puede usar:
+Desde la carpeta `MediTrack.Microsoft`:
 
 ```powershell
 dotnet restore
-dotnet run
+dotnet build
+dotnet run --no-build
 ```
 
-## 5. Publicar para IIS
+La aplicación normalmente quedará disponible en una dirección local indicada por la consola, por ejemplo `http://localhost:5000`.
+
+## Publicar en IIS
 
 Desde la carpeta `MediTrack.Microsoft`:
 
@@ -76,42 +69,54 @@ Desde la carpeta `MediTrack.Microsoft`:
 dotnet publish -c Release -o C:\inetpub\wwwroot\MediTrack
 ```
 
-En IIS:
+Luego en IIS:
 
-1. Cree un sitio o aplicación llamado `MediTrack`.
-2. Apunte la ruta física a `C:\inetpub\wwwroot\MediTrack`.
-3. Configure el Application Pool con **No Managed Code**.
-4. Verifique que el .NET Hosting Bundle esté instalado.
-5. Inicie el sitio y abra la dirección asignada.
+1. Crear un sitio o aplicación llamado `MediTrack`.
+2. Ruta física: `C:\inetpub\wwwroot\MediTrack`.
+3. Application Pool: **No Managed Code**.
+4. Confirmar que el .NET 8 Hosting Bundle esté instalado.
+5. Dar acceso a SQL Server a la identidad usada por IIS, o configurar una cadena de conexión apropiada para el servidor.
+6. Iniciar el sitio y probarlo desde el navegador.
 
-El archivo `web.config` incluido está preparado para ASP.NET Core Module V2.
+## Demostración recomendada
+
+1. Mostrar Windows Server funcionando en VirtualBox.
+2. Mostrar IIS instalado.
+3. Mostrar SQL Server Management Studio y `MediTrackDB`.
+4. Abrir MediTrack.
+5. Iniciar sesión.
+6. Mostrar el panel principal.
+7. Registrar un paciente.
+8. Programar una cita.
+9. Mostrar el directorio médico.
+10. Crear una nota clínica.
+11. Mostrar el módulo de reportes.
+12. Consultar directamente los registros en SQL Server.
+13. Mostrar MediTrack publicado en IIS.
 
 ## Capturas recomendadas para el documento
 
-- Windows Server funcionando en VirtualBox o servidor elegido.
-- Server Manager mostrando IIS instalado.
-- SQL Server/SSMS mostrando `MediTrackDB`.
-- Tabla `Users`.
-- Tabla `Patients`.
-- Visual Studio con el proyecto abierto.
-- Pantalla de login.
-- Dashboard posterior al login.
-- Formulario de registro.
-- Paciente guardado.
-- Consulta/listado de pacientes.
-- IIS Manager mostrando el sitio MediTrack.
-- Navegador mostrando MediTrack publicado desde IIS.
+- Windows Server.
+- Administrador del servidor con IIS.
+- Página de bienvenida de IIS.
+- SQL Server Express instalado.
+- SSMS conectado a `localhost\SQLEXPRESS`.
+- Base `MediTrackDB` y sus tablas.
+- Login de MediTrack.
+- Panel general.
+- Directorio de pacientes.
+- Formulario de paciente.
+- Agenda de citas.
+- Directorio médico.
+- Historial clínico.
+- Reportes.
+- IIS Manager con el sitio MediTrack.
+- MediTrack publicado desde IIS.
 
-## Flujo para la sustentación
+## Rama del proyecto final
 
-1. Mostrar Windows Server.
-2. Mostrar IIS y explicar que publica la aplicación.
-3. Mostrar SQL Server y las tablas.
-4. Abrir MediTrack desde el navegador.
-5. Iniciar sesión con el usuario almacenado en SQL Server.
-6. Registrar un paciente.
-7. Consultar el paciente en el listado.
-8. Mostrar el registro directamente en SQL Server.
-9. Explicar brevemente problemas encontrados y cómo se resolvieron.
+Todo el proyecto Microsoft se encuentra en la rama:
 
-La aplicación se mantiene intencionalmente pequeña para demostrar de forma clara servidor, publicación web, autenticación, formulario y consulta de base de datos.
+`proyecto-final-microsoft`
+
+La aplicación Node.js original permanece separada y sin modificaciones en la raíz del repositorio.
