@@ -5,8 +5,12 @@
 }
 
 <div class="page-heading">
-    <div><span class="eyebrow">CONSULTA SQL SERVER</span><h1>Pacientes registrados</h1></div>
-    <a class="button-link" asp-page="/Patients/Create">Nuevo paciente</a>
+    <div>
+        <span class="eyebrow">PACIENTES</span>
+        <h1>Directorio de pacientes</h1>
+        <p>Consulta y encuentra rápidamente la información de cada paciente.</p>
+    </div>
+    <a class="button-link" asp-page="/Patients/Create">+ Nuevo paciente</a>
 </div>
 
 <form method="get" class="searchbar">
@@ -16,15 +20,16 @@
 
 <div class="table-wrap">
 <table>
-    <thead><tr><th>Paciente</th><th>Correo</th><th>Teléfono</th><th>Fecha de registro</th></tr></thead>
+    <thead><tr><th>Código</th><th>Paciente</th><th>Contacto</th><th>Fecha de nacimiento</th><th>Registro</th></tr></thead>
     <tbody>
     @foreach (var patient in Model.Patients)
     {
         <tr>
-            <td><strong>@patient.FirstName @patient.LastName</strong></td>
-            <td>@(patient.Email ?? "—")</td>
-            <td>@(patient.Phone ?? "—")</td>
-            <td>@patient.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+            <td><span class="patient-code">PAC-@patient.Id.ToString("D4")</span></td>
+            <td><strong>@patient.FirstName @patient.LastName</strong><br /><span class="muted">@(patient.Email ?? "Sin correo")</span></td>
+            <td>@(patient.Phone ?? "Sin teléfono")</td>
+            <td>@(patient.BirthDate?.ToString("dd/MM/yyyy") ?? "No registrada")</td>
+            <td>@patient.CreatedAt.ToString("dd/MM/yyyy")</td>
         </tr>
     }
     </tbody>
