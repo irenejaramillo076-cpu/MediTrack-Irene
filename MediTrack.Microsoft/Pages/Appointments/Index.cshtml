@@ -1,0 +1,32 @@
+@page
+@model MediTrack.Microsoft.Pages.Appointments.IndexModel
+@{
+    ViewData["Title"] = "Citas";
+}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">AGENDA</span>
+        <h1>Citas médicas</h1>
+        <p>Organiza y consulta las próximas atenciones de la clínica.</p>
+    </div>
+    <a class="button-link" asp-page="/Appointments/Create">Nueva cita</a>
+</div>
+
+<div class="table-wrap">
+<table>
+    <thead><tr><th>Fecha</th><th>Paciente</th><th>Médico</th><th>Motivo</th><th>Estado</th></tr></thead>
+    <tbody>
+    @foreach (var item in Model.Appointments)
+    {
+        <tr>
+            <td><strong>@item.AppointmentDate.ToString("dd/MM/yyyy")</strong><br /><span class="muted">@item.AppointmentDate.ToString("hh:mm tt")</span></td>
+            <td>@item.Patient?.FirstName @item.Patient?.LastName</td>
+            <td>@item.Doctor?.FullName<br /><span class="muted">@item.Doctor?.Specialty</span></td>
+            <td>@item.Reason</td>
+            <td><span class="status-pill @(item.Status == "Programada" ? "info" : "success")">@item.Status</span></td>
+        </tr>
+    }
+    </tbody>
+</table>
+</div>

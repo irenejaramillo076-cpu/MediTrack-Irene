@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - MediTrack 360</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="@(User.Identity?.IsAuthenticated == true ? "app-shell" : "auth-shell")">
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <aside class="sidebar">
+        <div class="brand-block">
+            <div class="brand-mark">M</div>
+            <div><strong>MediTrack</strong><span>360</span></div>
+        </div>
+
+        <div class="clinic-label">CLÍNICA MÉDICA</div>
+
+        <nav class="side-nav">
+            <a asp-page="/Index"><span>⌂</span> Inicio</a>
+            <a asp-page="/Patients/Index"><span>♙</span> Pacientes</a>
+            <a asp-page="/Appointments/Index"><span>◷</span> Citas</a>
+            <a asp-page="/Doctors/Index"><span>✚</span> Médicos</a>
+            <a asp-page="/MedicalRecords/Index"><span>▤</span> Historial clínico</a>
+            <a asp-page="/Reports/Index"><span>▥</span> Reportes</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="user-card">
+                <div class="user-avatar">A</div>
+                <div><strong>@User.Identity?.Name</strong><span>Administrador</span></div>
+            </div>
+            <a class="logout-link" asp-page="/Account/Logout">Cerrar sesión</a>
+        </div>
+    </aside>
+
+    <div class="app-content">
+        <header class="app-header">
+            <div>
+                <span class="header-kicker">MediTrack 360</span>
+                <strong>@DateTime.Now.ToString("dddd, dd 'de' MMMM")</strong>
+            </div>
+            <div class="header-status"><span class="status-dot"></span> Sistema disponible</div>
+        </header>
+        <main class="container">@RenderBody()</main>
+    </div>
+}
+else
+{
+    <main class="auth-container">@RenderBody()</main>
+}
+</body>
+</html>

@@ -1,0 +1,41 @@
+@page
+@model MediTrack.Microsoft.Pages.MedicalRecords.CreateModel
+@{
+    ViewData["Title"] = "Nueva nota clínica";
+}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">ATENCIÓN CLÍNICA</span>
+        <h1>Nueva nota clínica</h1>
+        <p>Registra la información principal de una atención médica.</p>
+    </div>
+</div>
+
+<form method="post" class="form-card wide">
+    <div asp-validation-summary="ModelOnly" class="validation"></div>
+    <div class="form-grid">
+        <div>
+            <label asp-for="Note.PatientId"></label>
+            <select asp-for="Note.PatientId" asp-items="Model.PatientOptions"></select>
+        </div>
+        <div>
+            <label asp-for="Note.NoteDate"></label>
+            <input asp-for="Note.NoteDate" type="datetime-local" />
+        </div>
+        <div class="full-span">
+            <label asp-for="Note.Diagnosis"></label>
+            <input asp-for="Note.Diagnosis" placeholder="Ej. control general, cuadro respiratorio..." />
+            <span asp-validation-for="Note.Diagnosis" class="validation"></span>
+        </div>
+        <div class="full-span">
+            <label asp-for="Note.Treatment"></label>
+            <input asp-for="Note.Treatment" placeholder="Tratamiento o indicaciones principales" />
+        </div>
+        <div class="full-span">
+            <label asp-for="Note.Notes"></label>
+            <textarea asp-for="Note.Notes" rows="5" placeholder="Observaciones adicionales de la atención"></textarea>
+        </div>
+    </div>
+    <div class="form-actions"><button type="submit">Guardar nota</button><a asp-page="/MedicalRecords/Index">Cancelar</a></div>
+</form>

@@ -1,0 +1,40 @@
+@page
+@model MediTrack.Microsoft.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<section class="login-shell">
+    <div class="login-brand-panel">
+        <div class="login-logo">M</div>
+        <span class="eyebrow light">GESTIÓN CLÍNICA INTEGRAL</span>
+        <h1>MediTrack <span>360</span></h1>
+        <p>Una forma simple de organizar pacientes, citas y seguimiento clínico desde un solo lugar.</p>
+        <div class="login-features">
+            <div><span>✓</span> Gestión de pacientes</div>
+            <div><span>✓</span> Agenda médica</div>
+            <div><span>✓</span> Historial clínico</div>
+        </div>
+    </div>
+
+    <div class="login-form-panel">
+        <form method="post" class="login-form">
+            <div class="mobile-brand">MediTrack 360</div>
+            <span class="eyebrow">BIENVENIDO</span>
+            <h2>Iniciar sesión</h2>
+            <p class="muted">Ingresa tus credenciales para acceder al sistema.</p>
+            <div asp-validation-summary="ModelOnly" class="validation"></div>
+
+            <label asp-for="Input.Username"></label>
+            <input asp-for="Input.Username" autocomplete="username" placeholder="Usuario" />
+            <span asp-validation-for="Input.Username" class="validation"></span>
+
+            <label asp-for="Input.Password"></label>
+            <input asp-for="Input.Password" autocomplete="current-password" placeholder="Contraseña" />
+            <span asp-validation-for="Input.Password" class="validation"></span>
+
+            <button type="submit" class="login-button">Ingresar</button>
+            <small class="login-help">Acceso exclusivo para personal autorizado.</small>
+        </form>
+    </div>
+</section>

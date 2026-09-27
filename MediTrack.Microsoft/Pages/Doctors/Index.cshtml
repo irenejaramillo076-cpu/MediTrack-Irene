@@ -1,0 +1,30 @@
+@page
+@model MediTrack.Microsoft.Pages.Doctors.IndexModel
+@{
+    ViewData["Title"] = "Médicos";
+}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">DIRECTORIO MÉDICO</span>
+        <h1>Equipo médico</h1>
+        <p>Consulta los profesionales disponibles y sus especialidades.</p>
+    </div>
+    <a class="button-link" asp-page="/Doctors/Create">Agregar médico</a>
+</div>
+
+<div class="card-grid three">
+@foreach (var doctor in Model.Doctors)
+{
+    <article class="profile-card">
+        <div class="avatar-circle">@doctor.FullName.Substring(0, 1)</div>
+        <div>
+            <h3>@doctor.FullName</h3>
+            <span class="specialty">@doctor.Specialty</span>
+            <p>@(doctor.Phone ?? "Sin teléfono")</p>
+            <p>@(doctor.Email ?? "Sin correo")</p>
+        </div>
+        <span class="status-pill success">Disponible</span>
+    </article>
+}
+</div>

@@ -1,0 +1,37 @@
+@page
+@model MediTrack.Microsoft.Pages.Patients.IndexModel
+@{
+    ViewData["Title"] = "Pacientes";
+}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">PACIENTES</span>
+        <h1>Directorio de pacientes</h1>
+        <p>Consulta y encuentra rápidamente la información de cada paciente.</p>
+    </div>
+    <a class="button-link" asp-page="/Patients/Create">+ Nuevo paciente</a>
+</div>
+
+<form method="get" class="searchbar">
+    <input asp-for="Search" placeholder="Buscar por nombre, apellido o correo" />
+    <button type="submit">Buscar</button>
+</form>
+
+<div class="table-wrap">
+<table>
+    <thead><tr><th>Código</th><th>Paciente</th><th>Contacto</th><th>Fecha de nacimiento</th><th>Registro</th></tr></thead>
+    <tbody>
+    @foreach (var patient in Model.Patients)
+    {
+        <tr>
+            <td><span class="patient-code">PAC-@patient.Id.ToString("D4")</span></td>
+            <td><strong>@patient.FirstName @patient.LastName</strong><br /><span class="muted">@(patient.Email ?? "Sin correo")</span></td>
+            <td>@(patient.Phone ?? "Sin teléfono")</td>
+            <td>@(patient.BirthDate?.ToString("dd/MM/yyyy") ?? "No registrada")</td>
+            <td>@patient.CreatedAt.ToString("dd/MM/yyyy")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+</div>
