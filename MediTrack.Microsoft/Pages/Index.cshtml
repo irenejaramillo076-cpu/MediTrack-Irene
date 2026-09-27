@@ -4,22 +4,49 @@
     ViewData["Title"] = "Inicio";
 }
 
-<section class="hero">
+<section class="welcome-panel">
     <div>
-        <span class="eyebrow">SERVIDOR MICROSOFT · IIS · SQL SERVER</span>
-        <h1>Panel principal</h1>
-        <p>Bienvenido, <strong>@User.Identity?.Name</strong>. Desde aquí puedes registrar y consultar pacientes almacenados en SQL Server.</p>
+        <span class="eyebrow">PANEL GENERAL</span>
+        <h1>Buenos días, @User.Identity?.Name</h1>
+        <p>Consulta rápidamente la actividad de la clínica y accede a las tareas más frecuentes.</p>
     </div>
-    <div class="hero-badge">MediTrack 360</div>
+    <a class="button-link" asp-page="/Appointments/Create">+ Programar cita</a>
 </section>
 
-<section class="stats">
-    <article><strong>@Model.PatientCount</strong><span>Pacientes registrados</span></article>
-    <article><strong>SQL Server</strong><span>Base de datos</span></article>
-    <article><strong>IIS</strong><span>Publicación web</span></article>
+<section class="stats four">
+    <article class="stat-card"><span class="stat-icon">♙</span><div><strong>@Model.PatientCount</strong><span>Pacientes</span></div></article>
+    <article class="stat-card"><span class="stat-icon">✚</span><div><strong>@Model.DoctorCount</strong><span>Médicos activos</span></div></article>
+    <article class="stat-card"><span class="stat-icon">◷</span><div><strong>@Model.TodayAppointments</strong><span>Citas de hoy</span></div></article>
+    <article class="stat-card"><span class="stat-icon">✓</span><div><strong>@Model.PendingAppointments</strong><span>Citas pendientes</span></div></article>
 </section>
 
-<section class="actions">
-    <a class="action-card" asp-page="/Patients/Create"><h2>Registrar paciente</h2><p>Formulario conectado a la base de datos.</p></a>
-    <a class="action-card" asp-page="/Patients/Index"><h2>Consultar pacientes</h2><p>Consulta y devolución de registros desde SQL Server.</p></a>
+<section class="dashboard-grid">
+    <div class="panel-card">
+        <div class="panel-heading"><div><span class="eyebrow">AGENDA</span><h2>Próximas citas</h2></div><a asp-page="/Appointments/Index">Ver agenda</a></div>
+        @if (Model.UpcomingAppointments.Any())
+        {
+            <div class="appointment-list">
+            @foreach (var item in Model.UpcomingAppointments)
+            {
+                <div class="appointment-item">
+                    <div class="date-badge"><strong>@item.AppointmentDate.Day</strong><span>@item.AppointmentDate.ToString("MMM")</span></div>
+                    <div class="appointment-main"><strong>@item.Patient?.FirstName @item.Patient?.LastName</strong><span>@item.Reason · @item.AppointmentDate.ToString("hh:mm tt")</span></div>
+                    <div class="appointment-doctor">@item.Doctor?.FullName</div>
+                </div>
+            }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state compact"><h3>Agenda despejada</h3><p>No hay citas próximas registradas.</p></div>
+        }
+    </div>
+
+    <div class="panel-card quick-panel">
+        <div class="panel-heading"><div><span class="eyebrow">ACCESOS RÁPIDOS</span><h2>Gestión diaria</h2></div></div>
+        <a class="quick-action" asp-page="/Patients/Create"><span>＋</span><div><strong>Nuevo paciente</strong><small>Registrar datos personales</small></div></a>
+        <a class="quick-action" asp-page="/Appointments/Create"><span>◷</span><div><strong>Nueva cita</strong><small>Agendar una atención</small></div></a>
+        <a class="quick-action" asp-page="/MedicalRecords/Create"><span>▤</span><div><strong>Nota clínica</strong><small>Registrar diagnóstico y tratamiento</small></div></a>
+        <a class="quick-action" asp-page="/Doctors/Index"><span>✚</span><div><strong>Equipo médico</strong><small>Consultar profesionales</small></div></a>
+    </div>
 </section>
