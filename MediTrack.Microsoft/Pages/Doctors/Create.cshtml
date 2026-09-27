@@ -1,0 +1,24 @@
+@page
+@model MediTrack.Microsoft.Pages.Doctors.CreateModel
+@{
+    ViewData["Title"] = "Nuevo médico";
+}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">EQUIPO MÉDICO</span>
+        <h1>Agregar médico</h1>
+        <p>Registra un nuevo profesional en el directorio de la clínica.</p>
+    </div>
+</div>
+
+<form method="post" class="form-card wide">
+    <div asp-validation-summary="ModelOnly" class="validation"></div>
+    <div class="form-grid">
+        <div><label asp-for="Doctor.FullName"></label><input asp-for="Doctor.FullName" /><span asp-validation-for="Doctor.FullName" class="validation"></span></div>
+        <div><label asp-for="Doctor.Specialty"></label><input asp-for="Doctor.Specialty" /><span asp-validation-for="Doctor.Specialty" class="validation"></span></div>
+        <div><label asp-for="Doctor.Phone"></label><input asp-for="Doctor.Phone" /></div>
+        <div><label asp-for="Doctor.Email"></label><input asp-for="Doctor.Email" /><span asp-validation-for="Doctor.Email" class="validation"></span></div>
+    </div>
+    <div class="form-actions"><button type="submit">Guardar médico</button><a asp-page="/Doctors/Index">Cancelar</a></div>
+</form>
