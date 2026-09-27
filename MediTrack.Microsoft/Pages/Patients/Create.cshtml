@@ -1,21 +1,31 @@
 @page
 @model MediTrack.Microsoft.Pages.Patients.CreateModel
 @{
-    ViewData["Title"] = "Registrar paciente";
+    ViewData["Title"] = "Nuevo paciente";
 }
 
 <div class="page-heading">
-    <div><span class="eyebrow">FORMULARIO CON BASE DE DATOS</span><h1>Registrar paciente</h1></div>
+    <div>
+        <span class="eyebrow">PACIENTES</span>
+        <h1>Registrar paciente</h1>
+        <p>Completa la información básica para crear el expediente del paciente.</p>
+    </div>
 </div>
 
 <form method="post" class="form-card wide">
     <div asp-validation-summary="ModelOnly" class="validation"></div>
+    <div class="form-section-title">Información personal</div>
     <div class="form-grid">
-        <div><label asp-for="Patient.FirstName"></label><input asp-for="Patient.FirstName" /><span asp-validation-for="Patient.FirstName" class="validation"></span></div>
-        <div><label asp-for="Patient.LastName"></label><input asp-for="Patient.LastName" /><span asp-validation-for="Patient.LastName" class="validation"></span></div>
-        <div><label asp-for="Patient.Email"></label><input asp-for="Patient.Email" /><span asp-validation-for="Patient.Email" class="validation"></span></div>
-        <div><label asp-for="Patient.Phone"></label><input asp-for="Patient.Phone" /></div>
+        <div><label asp-for="Patient.FirstName"></label><input asp-for="Patient.FirstName" placeholder="Nombre" /><span asp-validation-for="Patient.FirstName" class="validation"></span></div>
+        <div><label asp-for="Patient.LastName"></label><input asp-for="Patient.LastName" placeholder="Apellido" /><span asp-validation-for="Patient.LastName" class="validation"></span></div>
         <div><label asp-for="Patient.BirthDate"></label><input asp-for="Patient.BirthDate" /></div>
     </div>
-    <div class="form-actions"><button type="submit">Guardar en SQL Server</button><a asp-page="/Patients/Index">Cancelar</a></div>
+
+    <div class="form-section-title">Datos de contacto</div>
+    <div class="form-grid">
+        <div><label asp-for="Patient.Phone"></label><input asp-for="Patient.Phone" placeholder="Ej. 6000-0000" /></div>
+        <div><label asp-for="Patient.Email"></label><input asp-for="Patient.Email" placeholder="correo@ejemplo.com" /><span asp-validation-for="Patient.Email" class="validation"></span></div>
+    </div>
+
+    <div class="form-actions"><button type="submit">Guardar paciente</button><a asp-page="/Patients/Index">Cancelar</a></div>
 </form>
