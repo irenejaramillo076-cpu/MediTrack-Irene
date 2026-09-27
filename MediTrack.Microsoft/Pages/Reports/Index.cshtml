@@ -1,0 +1,33 @@
+@page
+@model MediTrack.Microsoft.Pages.Reports.IndexModel
+@{
+    ViewData["Title"] = "Reportes";
+}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">GESTIÓN</span>
+        <h1>Resumen de actividad</h1>
+        <p>Indicadores generales para dar seguimiento a la operación de la clínica.</p>
+    </div>
+</div>
+
+<section class="stats four">
+    <article class="stat-card"><span class="stat-icon">♙</span><div><strong>@Model.PatientCount</strong><span>Pacientes</span></div></article>
+    <article class="stat-card"><span class="stat-icon">◷</span><div><strong>@Model.AppointmentCount</strong><span>Citas registradas</span></div></article>
+    <article class="stat-card"><span class="stat-icon">✓</span><div><strong>@Model.CompletedCount</strong><span>Atenciones completadas</span></div></article>
+    <article class="stat-card"><span class="stat-icon">▤</span><div><strong>@Model.ClinicalNoteCount</strong><span>Notas clínicas</span></div></article>
+</section>
+
+<div class="panel-card">
+    <div class="panel-heading"><div><span class="eyebrow">EQUIPO MÉDICO</span><h2>Citas por profesional</h2></div></div>
+    <div class="report-list">
+    @foreach (var item in Model.DoctorActivity)
+    {
+        <div class="report-row">
+            <div><strong>@item.DoctorName</strong><span>@item.Specialty</span></div>
+            <div class="report-value">@item.AppointmentCount citas</div>
+        </div>
+    }
+    </div>
+</div>
