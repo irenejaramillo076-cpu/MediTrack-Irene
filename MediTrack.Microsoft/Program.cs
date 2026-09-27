@@ -1,8 +1,13 @@
+using System.Globalization;
 using MediTrack.Microsoft.Data;
 using MediTrack.Microsoft.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
+var culture = new CultureInfo("es-PA");
+CultureInfo.DefaultThreadCurrentCulture = culture;
+CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 var builder = WebApplication.CreateBuilder(args);
 
