@@ -1,0 +1,42 @@
+@page
+@model MediTrack.Microsoft.Pages.MedicalRecords.IndexModel
+@{
+    ViewData["Title"] = "Historial clínico";
+}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">ATENCIÓN CLÍNICA</span>
+        <h1>Historial clínico</h1>
+        <p>Consulta diagnósticos, tratamientos y observaciones registradas.</p>
+    </div>
+    <a class="button-link" asp-page="/MedicalRecords/Create">Nueva nota clínica</a>
+</div>
+
+<div class="timeline">
+@foreach (var note in Model.Notes)
+{
+    <article class="timeline-card">
+        <div class="timeline-date">@note.NoteDate.ToString("dd MMM yyyy")</div>
+        <div class="timeline-body">
+            <div class="record-heading">
+                <h3>@note.Patient?.FirstName @note.Patient?.LastName</h3>
+                <span class="status-pill info">Consulta</span>
+            </div>
+            <p><strong>Diagnóstico:</strong> @note.Diagnosis</p>
+            @if (!string.IsNullOrWhiteSpace(note.Treatment))
+            {
+                <p><strong>Tratamiento:</strong> @note.Treatment</p>
+            }
+            @if (!string.IsNullOrWhiteSpace(note.Notes))
+            {
+                <p class="muted">@note.Notes</p>
+            }
+        </div>
+    </article>
+}
+@if (!Model.Notes.Any())
+{
+    <div class="empty-state"><h3>Aún no hay notas clínicas</h3><p>Registra la primera atención desde el botón superior.</p></div>
+}
+</div>
