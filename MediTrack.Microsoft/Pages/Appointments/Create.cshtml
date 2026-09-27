@@ -1,0 +1,46 @@
+@page
+@model MediTrack.Microsoft.Pages.Appointments.CreateModel
+@{
+    ViewData["Title"] = "Nueva cita";
+}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">AGENDA</span>
+        <h1>Programar cita</h1>
+        <p>Coordina una nueva atención para un paciente.</p>
+    </div>
+</div>
+
+<form method="post" class="form-card wide">
+    <div asp-validation-summary="ModelOnly" class="validation"></div>
+    <div class="form-grid">
+        <div>
+            <label asp-for="Appointment.PatientId"></label>
+            <select asp-for="Appointment.PatientId" asp-items="Model.PatientOptions"></select>
+        </div>
+        <div>
+            <label asp-for="Appointment.DoctorId"></label>
+            <select asp-for="Appointment.DoctorId" asp-items="Model.DoctorOptions"></select>
+        </div>
+        <div>
+            <label asp-for="Appointment.AppointmentDate"></label>
+            <input asp-for="Appointment.AppointmentDate" type="datetime-local" />
+        </div>
+        <div>
+            <label asp-for="Appointment.Status"></label>
+            <select asp-for="Appointment.Status">
+                <option>Programada</option>
+                <option>Confirmada</option>
+                <option>Completada</option>
+                <option>Cancelada</option>
+            </select>
+        </div>
+        <div class="full-span">
+            <label asp-for="Appointment.Reason"></label>
+            <input asp-for="Appointment.Reason" placeholder="Ej. consulta de control, evaluación general..." />
+            <span asp-validation-for="Appointment.Reason" class="validation"></span>
+        </div>
+    </div>
+    <div class="form-actions"><button type="submit">Guardar cita</button><a asp-page="/Appointments/Index">Cancelar</a></div>
+</form>
